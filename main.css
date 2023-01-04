@@ -1,0 +1,69 @@
+body {
+  background-color: azure;
+}
+
+.test_page {
+  position: absolute;
+  left: -1000%;
+  bottom: -1000%;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+
+.section_first {
+  margin-top: 20px;
+}
+
+.section_second {
+  margin-top: 70px;
+}
+
+.image_block {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.img {
+  margin: 0 auto;
+  display: block;
+  max-width: 500px;
+}
+
+.text_h1,
+.text_h2 {
+  margin: 0 auto;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.text_h3 {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.search-row {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.basic-url_container {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  margin-top: 20px;
+  margin: 0 auto;
+}
+
+.progress-wrap {
+  margin: 0 auto;
+  padding-top: 20px;
+}
