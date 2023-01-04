@@ -1,0 +1,25 @@
+[
+  {
+    "selector": "h1, h2, h3, h4, h5, h6",
+    "valueToCheck": "content | weight | font-size | color",
+    // от и до
+    // "rule": {
+    //     "type": "range",
+    //     "from": "100",
+    //     "to": "300" 
+    // },
+    // кратно value
+    // "rule": {
+    //     "type": "multipleOf",
+    //     "value": "2"
+    // },
+    // считает кол-во элементов
+    // "rule": {
+    //     "type": "count",
+    // }
+    // считает длину строки valueToCheck
+    // "rule": {
+    //     "type": "length",
+    // }
+  }
+]
