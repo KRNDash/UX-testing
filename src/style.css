@@ -1,5 +1,7 @@
+@import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 body {
-  background-color: azure;
+  background-color: rgb(243, 241, 241);
 }
 
 .test_page {
@@ -66,4 +68,9 @@ body {
 .progress-wrap {
   margin: 0 auto;
   padding-top: 20px;
+}
+
+.td_error {
+  color: red;
+  font-weight: 200;
 }
