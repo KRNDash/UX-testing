@@ -3,7 +3,7 @@ export function printResult(result) {
   document.querySelector(".table").innerHTML = `
     <thead>
         <tr>
-            <th scope="col">Критерий</th>
+            <th scope="col">Правило</th>
             <th scope="col">Результат</th>
         </tr>
     </thead>
@@ -12,10 +12,12 @@ export function printResult(result) {
       `
       <tr>
         <td>${res.rule}</td>
-        <td>${res.result}</td>
+        <td><input type="checkbox" id="rule1" name="rule1" ${
+          res.check ? "checked" : ""
+        } disabled /></td>
       </tr>
       <tr>
-        <td colspan="2" class='td_error'>вотыфтволфытволфытволфтволытолфыотлвлотфволтфытолв вотыфтволфытволфытволфтволытолфыотлвлотфволтфытолв вотыфтволфытволфытволфтволытолфыотлвлотфволтфытолв вотыфтволфытволфытволфтволытолфыотлвлотфволтфытолв вотыфтволфытволфытволфтволытолфыотлвлотфволтфытолв</td>
+        <td colspan="2" class='td_error'>${res.error}</td>
       </tr>
     `.trim()
     )}

@@ -10,12 +10,17 @@ body {
   bottom: -1000%;
 }
 
-.wrapper {
+.search-row {
+  justify-content: space-evenly;
   margin: 0 auto;
 }
 
 .section_first {
   margin-top: 20px;
+}
+
+.section_test {
+  margin-top: 30px;
 }
 
 .section_second {
@@ -71,6 +76,7 @@ body {
 }
 
 .td_error {
-  color: red;
-  font-weight: 200;
+  color: rgb(126, 120, 120);
+  font-weight: 300;
+  font-size: 14px;
 }

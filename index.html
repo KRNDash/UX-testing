@@ -18,30 +18,37 @@
                 <h1 class="text_h1">Тестирование интерфейса</h1>
                 <div class="input-field">
                     <div class="basic-url_container">
-                        <label for="basic-url" class="form-label">Введите URL страницы для тестирования</label>
+                        <label for="basic-url" class="col-6 form-label">В этой версии будет тестироваться уже готовая
+                            страница. Нажмите кнопку <strong>"Протестировать"</strong>, чтобы увидеть результаты
+                            проверки</label>
                     </div>
                     <div class="row search-row">
-                        <div class="col-5">
-                            <div class="input-group">
-                                <span class="input-group-text" id="basic-addon3">https://</span>
-                                <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                        <div class="col-6">
+                            <div class="d-grid">
+                                <button class="btn btn-outline-primary" type="button"><a href="/test/index.html">Открыть
+                                        тестовую
+                                        страницу</a></button>
                             </div>
+                            <!-- <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3">https://</span>
+                                <input type="text" disabled class="form-control" id="basic-url"
+                                    aria-describedby="basic-addon3">
+                            </div> -->
                         </div>
-                        <button type="button" id="test-btn-js" class="btn col-3 btn-primary">Протестировать</button>
+
+                        <button type="button" id="test-btn-js" class="btn col-2 btn-primary">Протестировать</button>
+
+
                     </div>
-                    <div class="col-8 progress-wrap">
+                    <!-- <div class="col-8 progress-wrap">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-label="Example with label"
                                 style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
         </section>
-        <section class="test">
-            <a href="/test/index.html">Тестовая страница</a>
-        </section>
-
         <section class="section_second container ">
             <h2 class='text_h2'>
                 Результаты тестирования
@@ -49,12 +56,12 @@
 
             <div class="table-container col-8">
                 <h3 class='text_h3 col-8'>
-                    Кнопки
+                    Заголовки
                 </h3>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Критерий</th>
+                            <th scope="col">Правило</th>
                             <th scope="col">Результат</th>
                         </tr>
                     </thead>

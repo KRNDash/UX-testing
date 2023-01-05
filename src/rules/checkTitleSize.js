@@ -1,12 +1,16 @@
-/**
- * @param {Element | null} html
- * @param {number} sizeStart
- * @param {number} sizeEnd
- */
-export function checkTitleSize(html, sizeStart = 32, sizeEnd = 150) {
+export function checkTitleSize(html) {
   //Получаем все элементы для проверки
-  let titleList = html.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  let result = true;
+  let titleList = html.querySelectorAll("h1, h2, h3");
+
+  //объект правила с для результатов и ошибок
+  let result = {
+    rule: "Размер заголовков h1-h3 от 24px до 150px",
+    check: true, //по умолчанию проверка верная
+    error: ["Элементы не удовлетворяющие правилу: "],
+  };
+
+  let sizeEnd = 150;
+  let sizeStart = 32;
 
   //Проходим по каждому элементу (заголовку)
   titleList.forEach((title) => {
@@ -14,11 +18,10 @@ export function checkTitleSize(html, sizeStart = 32, sizeEnd = 150) {
     let style = parseInt(
       window.getComputedStyle(title, null).getPropertyValue("font-size")
     );
-    console.log(style);
 
     if (style < sizeStart || style > sizeEnd) {
-      result = false;
-      console.log(title.outerHTML);
+      result.check = false;
+      result.error.push(title.innerHTML);
     }
   });
   return result;
