@@ -2,12 +2,7 @@ import "./style.css";
 import { printResult } from "./utils/print"; //вывод результатов в таблицу
 import config from "./config.json";
 
-//Правила
-import { checkTitleSize } from "./rules/checkTitleSize";
-import { checkTitleWeight } from "./rules/checkTitleWeight";
-import { checkTitleMultiplicity } from "./rules/checkTitleMultiplicity";
-import { checkTitleCount } from "./rules/checkTitleCount";
-import { checkTitleWidth } from "./rules/checkTitleWidth";
+import { title } from "./rules";
 
 //Событие клика по кнопке "Протестировать"
 document.querySelector("#test-btn-js").addEventListener("click", function () {
@@ -19,14 +14,18 @@ document.querySelector("#test-btn-js").addEventListener("click", function () {
     ? iframe.contentDocument
     : iframe.contentWindow.document;
 
-  const result = []; //массив для результатов
+  const result = {
+    title: [],
+    text: [],
+    button: [],
+    images: [],
+    forms: [],
+  }; //массив для результатов
 
   //TODO:Сделать автоматический запуск правил проверки
-  result.push(checkTitleSize(innerDoc));
-  result.push(checkTitleWeight(innerDoc));
-  result.push(checkTitleMultiplicity(innerDoc));
-  result.push(checkTitleCount(innerDoc));
-  result.push(checkTitleWidth(innerDoc));
+  for (const key in title) {
+    result.title.push(title[key](innerDoc));
+  }
 
   //Вывод результатов проверки
   printResult(result);
