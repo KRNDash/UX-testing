@@ -8,18 +8,24 @@ export function printResult(result) {
         </tr>
     </thead>
     <tbody>
-    ${result.map((res) =>
-      `
+    ${result.map(
+      (res) =>
+        `
       <tr>
         <td>${res.rule}</td>
         <td><input type="checkbox" id="rule1" name="rule1" ${
           res.check ? "checked" : ""
         } disabled /></td>
       </tr>
-      <tr>
-        <td colspan="2" class='td_error'>${res.error}</td>
-      </tr>
-    `.trim()
+      ${
+        res.check
+          ? ``
+          : `<tr>
+      <td colspan="2" class='td_error'>Элементы не удовлетворяющие правилу: ${res.error}</td>
+    </tr>`
+      }
+      
+    `
     )}
-    </tbody>`.trim();
+    </tbody>`;
 }

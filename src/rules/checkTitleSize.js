@@ -6,7 +6,7 @@ export function checkTitleSize(html) {
   let result = {
     rule: "Размер заголовков h1-h3 от 24px до 150px",
     check: true, //по умолчанию проверка верная
-    error: ["Элементы не удовлетворяющие правилу: "],
+    error: [],
   };
 
   let sizeEnd = 150;
