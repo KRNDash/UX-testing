@@ -1,9 +1,10 @@
 //Вывод результатов проверки в таблицу
 export function printResult(result) {
   document.querySelector(".table-container").innerHTML = ``;
+
   printTable(result.title, "Заголовки");
   printTable(result.text, "Текст");
-  printTable(result.button, "Кнопки");
+  printTable(result.buttons, "Кнопки");
   printTable(result.images, "Изображения");
   printTable(result.forms, "Формы");
 }
@@ -36,7 +37,7 @@ function printTable(result, title) {
           res.check
             ? ``
             : `<tr>
-        <td colspan="2" class='td_error'>Элементы не удовлетворяющие правилу: ${res.error}</td>
+        <td colspan="2" class='td_error'><strong>Элементы не удовлетворяющие правилу</strong>: ${res.error}</td>
       </tr>`
         }
       `

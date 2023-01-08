@@ -3,6 +3,7 @@ import { printResult } from "./utils/print"; //вывод результатов
 import config from "./config.json";
 
 import { title } from "./rules";
+import { text } from "./rules";
 
 //Событие клика по кнопке "Протестировать"
 document.querySelector("#test-btn-js").addEventListener("click", function () {
@@ -17,7 +18,7 @@ document.querySelector("#test-btn-js").addEventListener("click", function () {
   const result = {
     title: [],
     text: [],
-    button: [],
+    buttons: [],
     images: [],
     forms: [],
   }; //массив для результатов
@@ -25,6 +26,10 @@ document.querySelector("#test-btn-js").addEventListener("click", function () {
   //TODO:Сделать автоматический запуск правил проверки
   for (const key in title) {
     result.title.push(title[key](innerDoc));
+  }
+
+  for (const key in text) {
+    result.text.push(text[key](innerDoc));
   }
 
   //Вывод результатов проверки

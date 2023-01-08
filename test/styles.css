@@ -121,6 +121,7 @@ h2 {
   font-size: 18px;
   color: #ffffff;
   padding: 20px 40px 0 40px;
+  letter-spacing: 0.5px;
 }
 .headerBox3 {
   float: right;
@@ -145,6 +146,7 @@ h2 {
 }
 .picBox p {
   padding: 20px 15px 10px 15px;
+  font-weight: lighter;
 }
 #mainContent {
   margin: 0 0 0 360px;

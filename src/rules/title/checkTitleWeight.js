@@ -14,12 +14,12 @@ export function checkTitleWeight(html) {
   //Проходим по каждому элементу (заголовку)
   titleList.forEach((title) => {
     //проверка правила
-    let style = parseInt(
-      window.getComputedStyle(title, null).getPropertyValue("font-weight")
-    );
+    let style = window
+      .getComputedStyle(title, null)
+      .getPropertyValue("font-weight");
 
     if (
-      style < weightStart ||
+      parseInt(style) < weightStart ||
       style == "light" ||
       style == "normal" ||
       style == "lighter"
