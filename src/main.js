@@ -1,14 +1,11 @@
 import "./style.css";
 import { printResult } from "./utils/print"; //вывод результатов в таблицу
-import config from "./config.json";
 
 import { title } from "./rules";
 import { text } from "./rules";
 
 //Событие клика по кнопке "Протестировать"
 document.querySelector("#test-btn-js").addEventListener("click", function () {
-  // console.log(config);
-
   const iframe = document.querySelector(".test_page iframe"); //получение стилей страницы для проверки
 
   const innerDoc = iframe.contentDocument
