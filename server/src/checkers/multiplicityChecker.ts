@@ -1,0 +1,19 @@
+import { MultiplicityChecker, CheckResult } from "../types/Checker";
+import { ParserReturn } from "../types/Parser";
+
+export function multiplicityChecker(
+  value: ParserReturn,
+  checker: MultiplicityChecker
+): CheckResult {
+  if (Array.isArray(value))
+    throw new CheckResult(checker, value, false, "Представлен массив значений");
+  else if (typeof value === "string") value = Number(value);
+  if (isNaN(value)) throw new CheckResult(checker, value, false, "");
+  return new CheckResult(
+    checker,
+    value,
+    checker.multiplesOf
+      .map((divider) => Number(value) % divider === 0)
+      .some(Boolean)
+  );
+}
