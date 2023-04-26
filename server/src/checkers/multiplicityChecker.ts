@@ -1,6 +1,7 @@
 import { MultiplicityChecker, CheckResult } from "../types/Checker";
 import { ParserReturn } from "../types/Parser";
 
+//Проверка на кратность числу
 export function multiplicityChecker(
   value: ParserReturn,
   checker: MultiplicityChecker

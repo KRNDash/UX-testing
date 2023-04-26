@@ -5,6 +5,7 @@ import { elementsParser } from "./elementsParser";
 import { imageParser } from "./imageParser";
 import { textParser } from "./textParser";
 
+//Получаем значения для проверки одним из 4 парсеров
 function getValueToCheck(page: Page, parser: Parser) {
   return async (
     element: ElementHandle<Element>
@@ -29,6 +30,7 @@ function getValueToCheck(page: Page, parser: Parser) {
   };
 }
 
+//Подсчет количества элементов на странице
 export async function parseElements(
   page: Page,
   elementList: ElementHandle<Element>[],

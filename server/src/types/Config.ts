@@ -1,14 +1,16 @@
 import { Checker } from "./Checker";
 
-export interface Rule<T> {
-  id: number;
-  selector: string;
-  ruleName: string;
-  сheckers: T[];
+//Конфиг правил (верхняя секция списка правил - рездел правил, 1 уровень конфига)
+export interface RulesConfig<T = Checker> {
+  id: number; //номер
+  section: string; //раздел правил: текст, заголовки, картинки и прочее
+  rules: Rule<T>[]; //массив правил (2 уровень)
 }
 
-export interface RulesConfig<T = Checker> {
-  id: number;
-  section: string;
-  rules: Rule<T>[];
+//Интерфейс правил (правила внутри каждого раздела, 2 уровень конфига)
+export interface Rule<T> {
+  id: number; //номер правила
+  selector: string; //селекторы для проверки
+  ruleName: string; //текст правила на русском
+  сheckers: T[]; //какие проверки нас интересуют (целое, диапазон, включение или кратность)
 }
