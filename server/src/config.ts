@@ -7,7 +7,7 @@ export const config: RulesConfig[] = [
     rules: [
       {
         id: 1,
-        selector: ".list-item",
+        selector: "p, div, li, span",
         ruleName: "Размер шрифта на ПК от 14px до 24px, целые числа или 330px",
         сheckers: [
           {
