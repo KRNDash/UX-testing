@@ -36,7 +36,7 @@ export async function getCheckResult(
       if (checker.type === "multiplicity") {
         result.push(multiplicityChecker(elementValue, checker));
       }
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       if (error instanceof CheckResult) result.push(error);
       else console.error(error);

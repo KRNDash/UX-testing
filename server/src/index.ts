@@ -1,20 +1,22 @@
 import express, { Express, Request, Response } from "express"; //подключение сервера express
 import dotenv from "dotenv";
+import cors from "cors";
 import puppeteer, { Browser } from "puppeteer"; //бибилиотека получения разметки
 import path from "path";
 import { config } from "./config"; //конфиг правил
 import { getCheckResult } from "./checkers"; //чекеры
 import { CheckResult } from "./types/Checker"; //типы чекеров
 import { RulesConfig } from "./types/Config"; //тип конфиг
-import { isValidUrl } from "./utils/isValidUrl"; //проверка валидности адреса
-import { createServer as createViteServer } from "vite";
+// import { isValidUrl } from "./utils/isValidUrl"; //проверка валидности адреса
 
 dotenv.config();
 
 //Инициализация express
 const app: Express = express();
+
 //Используем статическую папку
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
 //открывается через порт 3000
 const port = process.env.PORT || 3000;

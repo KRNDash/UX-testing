@@ -1,6 +1,5 @@
 import "./style.css";
 import { printResult } from "./utils/print"; //вывод результатов в таблицу
-
 import { title } from "./rules";
 import { text } from "./rules";
 
