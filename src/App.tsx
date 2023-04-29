@@ -7,8 +7,18 @@ import { MyTable } from "./components/MyTable.jsx";
 import { testUrl } from "./utils/testUrl.js";
 
 function App() {
+  //Данные с резульататами тестирования
   const [data, setData] = useState<RulesConfig<CheckResult[]>[] | null>(null);
+
+  //Адрес сайта для тестирования
   const [url, setUrl] = useState("");
+
+  //Индикатор загрузки
+  const [loading, setLoading] = useState(false);
+
+  //Индикатор ошибки url
+  const [error, setError] = useState(false);
+
   // useEffect(() => {
   //   getCheckResult()
   //     .catch(console.error)
@@ -19,10 +29,15 @@ function App() {
 
   async function getResult() {
     if (url && url.length > 0 && testUrl(url)) {
+      setLoading(true);
+      setError(false);
       const data = await getCheckResult(url);
+      setLoading(false);
       setData(data);
     } else {
-      alert(`Некорректный url: ` + url);
+      setLoading(false);
+      setError(true);
+      // alert(`Некорректный url: ` + url);
     }
   }
 
@@ -54,7 +69,9 @@ function App() {
                   </span>
                   <input
                     type="url"
-                    className="form-control"
+                    className={
+                      error ? "form-control is-invalid" : "form-control"
+                    }
                     name="url"
                     id="basic-url"
                     aria-describedby="basic-addon3"
@@ -62,6 +79,15 @@ function App() {
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                   />
+                </div>
+                <div>
+                  {error ? (
+                    <div className="col-6 invalid-feedback">
+                      Пожалуйста, введите корректный url
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
 
@@ -77,9 +103,15 @@ function App() {
         </div>
       </section>
       <section id="results" className="section_second container ">
-        <h2 className="text_h2">Результаты тестирования</h2>
+        {loading && (
+          <img className="gif" src="/src/assets/images/loading.gif" alt="" />
+        )}
+        {data && !loading && (
+          <h2 className="text_h2">Результаты тестирования</h2>
+        )}
         <div className="table-container col-8">
-          <MyTable res={data}></MyTable>
+          {data && !loading ? <MyTable res={data}></MyTable> : <div></div>}
+          {/* <LoadingSpinnerComponent /> */}
         </div>
       </section>
     </div>

@@ -10,6 +10,21 @@ body {
   bottom: -1000%;
 }
 
+.gif {
+  width: 50px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.invalid-feedback {
+  padding-top: 10px;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
 .search-row {
   justify-content: space-evenly;
   margin: 0 auto;
@@ -17,6 +32,10 @@ body {
 
 .section_first {
   margin-top: 20px;
+}
+
+#test-btn-js {
+  height: 40px;
 }
 
 .section_test {
