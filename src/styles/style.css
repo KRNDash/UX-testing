@@ -1,7 +1,7 @@
 @import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 body {
-  background-color: rgb(243, 241, 241);
+  background-color: rgb(255, 255, 255);
 }
 
 .test_page {
@@ -31,7 +31,7 @@ body {
 }
 
 .section_first {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 #test-btn-js {
@@ -55,25 +55,29 @@ body {
 .img {
   margin: 0 auto;
   display: block;
-  max-width: 500px;
+  max-width: 700px;
 }
 
-.text_h1,
-.text_h2 {
+.text_h1 {
   margin: 0 auto;
-  margin-bottom: 30px;
   text-align: center;
 }
 
+.text_h2 {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 30px;
+}
+
 .text_h3 {
-  margin-top: 70px;
+  margin-top: 50px;
   margin-bottom: 15px;
 }
 
 .input-field {
   text-align: center;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .search-row {

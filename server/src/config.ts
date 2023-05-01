@@ -1,120 +1,120 @@
 import { RulesConfig } from "./types/Config";
 
 export const config: RulesConfig[] = [
-  // {
-  //   id: 1,
-  //   section: "Текст",
-  //   rules: [
-  //     {
-  //       id: 1,
-  //       selector: "p, div, li, span",
-  //       ruleName: "Размер шрифта на ПК от 14px до 24px, целые числа или 330px",
-  //       сheckers: [
-  //         {
-  //           type: "range",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "fontSize",
-  //           range: [14, 24],
-  //         },
-  //         {
-  //           type: "integer",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "fontSize",
-  //         },
-  //         {
-  //           type: "includes",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "fontSize",
-  //           variants: [330],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 2,
-  //       selector: "p",
-  //       ruleName: "Межстрочное расстоние от 120% до 180% или normal",
-  //       сheckers: [
-  //         {
-  //           type: "range",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "lineHeight",
-  //           range: [120, 180],
-  //         },
-  //         {
-  //           type: "includes",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "lineHeight",
-  //           variants: ["normal"],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 3,
-  //       selector: "p",
-  //       ruleName: "Межбуквенное расстояние от 0 до 0.4",
-  //       сheckers: [
-  //         {
-  //           type: "range",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "letterSpacing",
-  //           range: [0, 0.4],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 4,
-  //       selector: "p",
-  //       ruleName: "Текст написан в нижнем регистре (не ЗАГЛАВНЫМИ)",
-  //       сheckers: [
-  //         {
-  //           type: "includes",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "textTransform",
-  //           variants: ["lowercase"],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 5,
-  //       selector: "p",
-  //       ruleName: "Начертание шрифта light-medium (от 100 до 500)",
-  //       сheckers: [
-  //         {
-  //           type: "range",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "fontWeight",
-  //           range: [100, 500],
-  //         },
-  //         {
-  //           type: "includes",
-  //           toBeParsed: "css-property",
-  //           cssProperty: "fontWeight",
-  //           variants: ["light", "medium"],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       id: 6,
-  //       selector: "p",
-  //       ruleName:
-  //         "Ширина текстового блока не больше 80 символов и делится на 2 или 3 или 5",
-  //       сheckers: [
-  //         {
-  //           type: "range",
-  //           toBeParsed: "text-content",
-  //           parseBy: "count",
-  //           range: [null, 80],
-  //         },
-  //         {
-  //           type: "multiplicity",
-  //           toBeParsed: "text-content",
-  //           parseBy: "count",
-  //           multiplesOf: [2, 3, 5],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    id: 1,
+    section: "Текст",
+    rules: [
+      {
+        id: 1,
+        selector: "p, div, li, span",
+        ruleName: "Размер шрифта на ПК от 14px до 24px, целые числа или 330px",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "css-property",
+            cssProperty: "fontSize",
+            range: [14, 24],
+          },
+          {
+            type: "integer",
+            toBeParsed: "css-property",
+            cssProperty: "fontSize",
+          },
+          {
+            type: "includes",
+            toBeParsed: "css-property",
+            cssProperty: "fontSize",
+            variants: [330],
+          },
+        ],
+      },
+      {
+        id: 2,
+        selector: "p",
+        ruleName: "Межстрочное расстоние от 120% до 180% или normal",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "css-property",
+            cssProperty: "lineHeight",
+            range: [120, 180],
+          },
+          {
+            type: "includes",
+            toBeParsed: "css-property",
+            cssProperty: "lineHeight",
+            variants: ["normal"],
+          },
+        ],
+      },
+      {
+        id: 3,
+        selector: "p",
+        ruleName: "Межбуквенное расстояние от 0 до 0.4",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "css-property",
+            cssProperty: "letterSpacing",
+            range: [0, 0.4],
+          },
+        ],
+      },
+      {
+        id: 4,
+        selector: "p",
+        ruleName: "Текст написан в нижнем регистре (не ЗАГЛАВНЫМИ)",
+        сheckers: [
+          {
+            type: "includes",
+            toBeParsed: "css-property",
+            cssProperty: "textTransform",
+            variants: ["lowercase"],
+          },
+        ],
+      },
+      {
+        id: 5,
+        selector: "p",
+        ruleName: "Начертание шрифта light-medium (от 100 до 500)",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "css-property",
+            cssProperty: "fontWeight",
+            range: [100, 500],
+          },
+          {
+            type: "includes",
+            toBeParsed: "css-property",
+            cssProperty: "fontWeight",
+            variants: ["light", "medium"],
+          },
+        ],
+      },
+      {
+        id: 6,
+        selector: "p",
+        ruleName:
+          "Ширина текстового блока не больше 80 символов и делится на 2 или 3 или 5",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "text-content",
+            parseBy: "count",
+            range: [null, 80],
+          },
+          {
+            type: "multiplicity",
+            toBeParsed: "text-content",
+            parseBy: "count",
+            multiplesOf: [2, 3, 5],
+          },
+        ],
+      },
+    ],
+  },
   {
     id: 2,
     section: "Заголовки",

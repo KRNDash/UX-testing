@@ -1,9 +1,11 @@
-import "./style.css";
+import "./styles/style.css";
+import "./styles/header-style.css";
 import { useState, useEffect } from "react";
 import { getCheckResult } from "./getCheckResult";
 import { RulesConfig } from "../server/src/types/Config";
 import { CheckResult } from "../server/src/types/Checker";
 import { MyTable } from "./components/MyTable.jsx";
+import { Header } from "./components/Header.jsx";
 import { testUrl } from "./utils/testUrl.js";
 
 function App() {
@@ -41,21 +43,24 @@ function App() {
     }
   }
 
+  const table = data?.map((section) => <MyTable section={section}></MyTable>);
+
   return (
     <div className="wrapper">
+      <Header></Header>
       <section className="section_first">
         <div className="container">
           <div className="image_block">
             <img
               className="img"
-              src="/src/assets/images/Completed task _Flatline.svg"
+              src="/src/assets/images/image 3.jpg"
               alt="Чеклист"
             />
           </div>
           <h1 className="text_h1">Тестирование интерфейса</h1>
           <div className="input-field">
             <div className="basic-url_container">
-              <label htmlFor="basic-url" className="col-6 form-label">
+              <label className="col-6 form-label">
                 Нажмите кнопку <strong>"Протестировать"</strong>, чтобы увидеть
                 результаты проверки
               </label>
@@ -110,8 +115,7 @@ function App() {
           <h2 className="text_h2">Результаты тестирования</h2>
         )}
         <div className="table-container col-8">
-          {data && !loading ? <MyTable res={data}></MyTable> : <div></div>}
-          {/* <LoadingSpinnerComponent /> */}
+          {data && !loading ? table : <div></div>}
         </div>
       </section>
     </div>
