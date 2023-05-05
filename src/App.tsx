@@ -10,9 +10,9 @@ import "./styles/header-style.css";
 
 import { Routes ,Route } from 'react-router-dom';
 
-import Home from "./Home";
-import Add from "./Add";
-import Edit from "./Edit";
+import Home from "./pages/Home";
+import Add from "./pages/Add";
+import Edit from "./pages/Edit";
 import Header from "./components/Header";
 
 
