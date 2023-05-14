@@ -1,5 +1,4 @@
 import "../styles/style.css";
-import "../styles/header-style.css";
 import { useState } from "react";
 import { getCheckResult } from "../getCheckResult.js";
 import { RulesConfig } from "../../server/src/types/Config.js";

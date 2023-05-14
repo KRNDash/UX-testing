@@ -2,7 +2,7 @@ import "../styles/style.css";
 import { RulesConfig } from "../../server/src/types/Config";
 import { CheckResult } from "../../server/src/types/Checker";
 
-type Params = {
+type Props = {
   section: RulesConfig<CheckResult[]> | null;
 };
 
@@ -18,7 +18,7 @@ function getCheck(checkers: CheckResult[][]): boolean {
 }
 
 //Таблица с результатами по одной секции
-export function MyTable({ section }: Params) {
+export function MyTable({ section }: Props) {
   const rule = section?.rules.map((rule) => (
     <tr>
       <td>{rule.ruleName}</td>

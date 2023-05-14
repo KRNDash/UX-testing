@@ -79,6 +79,21 @@ app.get("/api/check", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/api", async (req: Request, res: Response) => {
+  // const url = String(req.query.url);
+
+  //Что будем получать
+  if (!browser) return res.json({ message: "Повторите попытку позднее" });
+
+  try {
+    //Отправляем результаты проверки
+    res.json(config);
+  } catch (error) {
+    //В случае ошибки сервер отправит текст ошибки и статус 400
+    res.json({ message: "Ошибка: " + String(error) }).status(400);
+  }
+});
+
 async function start() {
   try {
     browser = await puppeteer.launch();

@@ -1,5 +1,4 @@
 import "../styles/style.css";
-import "../styles/header-style.css";
 
 function Edit() {
   return (

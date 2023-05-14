@@ -148,7 +148,7 @@ export const config: RulesConfig[] = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     section: "Изображения",
     rules: [
       {
