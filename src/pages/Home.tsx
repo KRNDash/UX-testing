@@ -1,6 +1,6 @@
 import "../styles/style.css";
 import { useState } from "react";
-import { getCheckResult } from "../getCheckResult.js";
+import { getCheckResult } from "../utils/getCheckResult.js";
 import { RulesConfig } from "../../server/src/types/Config.js";
 import { CheckResult } from "../../server/src/types/Checker.js";
 import { MyTable } from "../components/MyTable.js";

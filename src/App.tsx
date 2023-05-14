@@ -1,12 +1,5 @@
 import "./styles/style.css";
 
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-// } from 'react-router-dom';
-
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Add from "./pages/Add";
@@ -21,7 +14,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
-        {/* <Route path="*" element={<NotFound/>}/> */}
       </Routes>
     </>
   );

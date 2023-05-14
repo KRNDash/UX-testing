@@ -2,7 +2,7 @@ import MyDropDown from "../components/MyDropDown";
 import "../styles/style.css";
 import { RulesConfig } from "../../server/src/types/Config.js";
 // import { Checker } from "../../server/src/types/Checker.js";
-import { getConfig } from "../getCheckResult.js";
+import { getConfig } from "../utils/getCheckResult.js";
 import { useState, useEffect } from "react";
 import MyNumberInput from "../components/MyNumberInput.js";
 import MyTextInput from "../components/MyTextInput.js";

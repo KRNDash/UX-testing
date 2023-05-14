@@ -1,5 +1,4 @@
 import "../styles/style.css";
-import Select from "react-select";
 
 type Props = {
   stepNum: number;

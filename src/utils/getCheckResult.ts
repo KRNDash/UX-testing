@@ -1,5 +1,5 @@
-import { RulesConfig } from "../server/src/types/Config";
-import { CheckResult, Checker } from "../server/src/types/Checker";
+import { RulesConfig } from "../../server/src/types/Config";
+import { CheckResult, Checker } from "../../server/src/types/Checker";
 
 const BASE_URL = "http://localhost:3001";
 
