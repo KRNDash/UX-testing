@@ -4,10 +4,9 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-.test_page {
-  position: absolute;
-  left: -1000%;
-  bottom: -1000%;
+
+.wrapper {
+  margin-bottom: 100px;
 }
 
 .link {

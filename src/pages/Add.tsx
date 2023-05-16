@@ -7,6 +7,11 @@ import { useState, useEffect } from "react";
 import MyNumberInput from "../components/MyNumberInput.js";
 import MyTextInput from "../components/MyTextInput.js";
 import StepTitle from "../components/StepTitle.tsx";
+import {
+  cssPropertyOptions,
+  parseOptions,
+  elementPropertyOptions,
+} from "../utils/options.ts";
 
 function Add() {
   //Конфиг правил с сервера
@@ -22,7 +27,13 @@ function Add() {
   const [ruleText, setRuleText] = useState<string>();
 
   //Данные о выбранном типе получаемых данных
-  const [parse, setParse] = useState<string>();
+  const [parse, setParse] = useState<string>("css-property");
+
+  //Данные о выбранном CSS свойстве
+  const [cssProperty, setCssProperty] = useState<string>();
+
+  //Данные о выбранном параметре для элементов
+  const [parseByProperty, setParseByProperty] = useState<string>();
 
   //Данные о введеном диапазоне
   const [min, setMin] = useState<number>();
@@ -42,51 +53,106 @@ function Add() {
     label: el.section,
   }));
 
-  //Тип получаемых данных
-  const parseOptions = [
-    {
-      value: "css-property",
-      label: "CSS-свойство",
-    },
-    {
-      value: "text-content",
-      label: "Текст элемента",
-    },
-    {
-      value: "images",
-      label: "Изображения",
-    },
-    {
-      value: "elements",
-      label: "Элементы со страницы",
-    },
-  ];
+  const firstStep = (
+    <StepTitle
+      stepNum={1}
+      stepTitle="В какой раздел добавить правило?"
+      input={
+        <MyDropDown onElChange={setSection} data={titleOptions}></MyDropDown>
+      }
+    ></StepTitle>
+  );
 
-  function setNextStep() {
+  const secondStep = (
+    <StepTitle
+      stepNum={2}
+      stepTitle="Перечислите классы, теги или id элементов для проверки"
+      input={
+        <MyTextInput
+          onTextChange={setSelector}
+          placeholder="Пример: p, div, .myTitle, #mySection, ..."
+        ></MyTextInput>
+      }
+    ></StepTitle>
+  );
+
+  const thirdStep = (
+    <StepTitle
+      stepNum={3}
+      stepTitle="Укажите название правила на русском языке"
+      input={<MyTextInput onTextChange={setRuleText}></MyTextInput>}
+    ></StepTitle>
+  );
+
+  function setFourthStep() {
+    console.log(section);
+    if (section == "3") {
+      // setParse("image");
+      const imageOptions = [{ value: "byteSize", label: "Вес изображения" }];
+
+      return (
+        <StepTitle
+          stepNum={4}
+          stepTitle={"Какое свойство изображения проверить?"}
+          input={
+            <MyDropDown
+              onElChange={setParseByProperty}
+              data={imageOptions}
+            ></MyDropDown>
+          }
+        ></StepTitle>
+      );
+    } else {
+      return (
+        <>
+          <StepTitle
+            stepNum={4}
+            stepTitle="Что проверяется в правиле?"
+            input={
+              <MyDropDown
+                onElChange={setParse}
+                data={parseOptions}
+              ></MyDropDown>
+            }
+          ></StepTitle>
+          {setFifthStep()}
+        </>
+      );
+    }
+  }
+
+  function setFifthStep() {
+    const propertyTitleList = [
+      "Какое CSS-свойство проверять?",
+      "Какое свойство (атрибут) элемента проверить?",
+    ];
+
+    let title = "";
+    let options = cssPropertyOptions;
+    let getter;
+
+    //Если свойство не выбрано
     if (parse == undefined) {
       return "";
-    }
+    } else {
+      if (parse == "css-property") {
+        title = propertyTitleList[0];
+        options = cssPropertyOptions;
+        getter = setCssProperty;
+      } else if (parse == "elements") {
+        title = propertyTitleList[1];
+        options = elementPropertyOptions;
+        getter = setParseByProperty;
+      } else return "";
 
-    if (parse == "css-property") {
       return (
         <StepTitle
           stepNum={5}
-          stepTitle="1111"
-          input={
-            <MyDropDown onElChange={setParse} data={parseOptions}></MyDropDown>
-          }
+          stepTitle={title}
+          input={<MyDropDown onElChange={getter} data={options}></MyDropDown>}
         ></StepTitle>
       );
-    } else
-      return (
-        <StepTitle
-          stepNum={5}
-          stepTitle="2222"
-          input={
-            <MyDropDown onElChange={setParse} data={parseOptions}></MyDropDown>
-          }
-        ></StepTitle>
-      );
+    }
   }
 
   return (
@@ -104,47 +170,34 @@ function Add() {
       </section>
       <section className="section_second">
         <div className="container row">
-          {/* 1 шаг */}
-          <StepTitle
-            stepNum={1}
-            stepTitle="В какой раздел добавить правило?"
-            input={
-              <MyDropDown
-                onElChange={setSection}
-                data={titleOptions}
-              ></MyDropDown>
-            }
-          ></StepTitle>
-          {/* 2 шаг */}
-          <StepTitle
-            stepNum={2}
-            stepTitle="Перечислите классы, теги или id элементов для проверки"
-            input={
-              <MyTextInput
-                onTextChange={setSelector}
-                placeholder="Пример: p, div, .myTitle, #mySection, ..."
-              ></MyTextInput>
-            }
-          ></StepTitle>
-          {/* 3 шаг */}
-          <StepTitle
-            stepNum={3}
-            stepTitle="Укажите название правила на русском языке"
-            input={<MyTextInput onTextChange={setRuleText}></MyTextInput>}
-          ></StepTitle>
-          {/* 4 шаг */}
-          <StepTitle
-            stepNum={4}
-            stepTitle="Что проверяется в правиле?"
-            input={
-              <MyDropDown
-                onElChange={setParse}
-                data={parseOptions}
-              ></MyDropDown>
-            }
-          ></StepTitle>
-          {setNextStep()}
-          {/* <div className="d-flex">
+          {firstStep}
+          {section ? (
+            <>
+              {secondStep}
+              {selector ? (
+                <>
+                  {thirdStep}
+                  {ruleText ? (
+                    <>
+                      {setFourthStep()}
+                      {parseByProperty || cssProperty ? (
+                        <div className="rangeWrapper col-2">
+                          <MyNumberInput
+                            onNumberChange={setMin}
+                          ></MyNumberInput>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </>
+              ) : (
+                ""
+              )}
+              {/* <div className="d-flex">
             <div className="rangeWrapper col-2">
               <MyNumberInput onNumberChange={setMin}></MyNumberInput>
             </div>
@@ -155,6 +208,10 @@ function Add() {
               Range: от {min} до {max}
             </p>
           </div> */}
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </div>
