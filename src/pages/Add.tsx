@@ -37,16 +37,16 @@ function Add() {
   const [parseByProperty, setParseByProperty] = useState<string>();
 
   //Данные о типе проверки
-  const [type, setType] = useState<string>();
+  const [type, setType] = useState<string>("range");
 
   //Данные о диапазоне
-  const [range, setRange] = useState<number[]>();
+  const [range, setRange] = useState<number[]>([0, 1]);
 
   //Данные о кратности
-  const [multiplesOf, setMultiplesOf] = useState<number[]>();
+  const [multiplesOf, setMultiplesOf] = useState<string>();
 
   //Данные о вариантах (перечисление)
-  const [variants, setVariants] = useState<number | string[]>();
+  const [variants, setVariants] = useState<string>();
 
   //Данные о введеном диапазоне
   const [min, setMin] = useState<number>(0);
@@ -168,31 +168,47 @@ function Add() {
     }
   }
 
+  const rangeInput = (
+    <>
+      <div className="d-flex offset-md-1">
+        <div className="rangeWrapper">
+          <MyNumberInput onNumberChange={setMin}></MyNumberInput>
+        </div>
+        <div className="rangeWrapper offset">
+          <MyNumberInput onNumberChange={setMax}></MyNumberInput>
+        </div>
+      </div>
+    </>
+  );
+
+  const includesInput = (
+    <div className="includesWrapper">
+      <MyTextInput onTextChange={setVariants}></MyTextInput>
+    </div>
+  );
+
+  const multiplyInput = (
+    <div className="includesWrapper">
+      <MyTextInput onTextChange={setMultiplesOf}></MyTextInput>
+    </div>
+  );
+
   function setSixthStep() {
     if (type == undefined) {
-      setType("range");
+      return "";
     }
 
-    if (type == "range") {
-      return (
-        <div className="d-flex">
-          <div className="rangeWrapper col-2">
-            <MyNumberInput onNumberChange={setMin}></MyNumberInput>
-          </div>
-          <div className="rangeWrapper col-2 offset">
-            <MyNumberInput onNumberChange={setMax}></MyNumberInput>
-          </div>
-          <>{setRange([min, max])}</>
-        </div>
-      );
+    {
+      if (type == "range") {
+        return rangeInput;
+      } else if (type == "includes") {
+        return includesInput;
+      } else if (type == "multiplicity") {
+        return multiplyInput;
+      } else {
+        return "";
+      }
     }
-    // else if (type == "integer") {
-    //   return ("");
-    // } else if (type == "includes") {
-    //   return ();
-    // } else {
-    //   return ();
-    // }
   }
 
   return (
@@ -225,16 +241,34 @@ function Add() {
                           <StepTitle
                             stepNum={6}
                             stepTitle="Что проверяется в правиле?"
-                            input={<></>}
+                            input={
+                              <>
+                                <div className="d-flex justify-content-between">
+                                  <div className="col-6">
+                                    <MyDropDown
+                                      onElChange={setType}
+                                      data={typeOptions}
+                                    ></MyDropDown>
+                                  </div>
+                                  <div className="">{setSixthStep()}</div>
+                                </div>
+                              </>
+                            }
                           ></StepTitle>
-                          {/* //Список с видами значений */}
-                          <div className="f-flex">
-                            <MyDropDown
-                              onElChange={setType}
-                              data={typeOptions}
-                            ></MyDropDown>
-                            {setSixthStep()}
-                          </div>
+                          {range || multiplesOf || variants ? (
+                            <>
+                              <div className="d-flex flex-row-reverse">
+                                <button className="btn col-2 btn-primary">
+                                  Добавить правило
+                                </button>
+                                <button className="btn btn-outline-primary col-2">
+                                  Сбросить всё
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            ""
+                          )}
                         </>
                       ) : (
                         ""
