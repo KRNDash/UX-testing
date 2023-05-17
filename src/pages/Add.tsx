@@ -11,6 +11,7 @@ import {
   cssPropertyOptions,
   parseOptions,
   elementPropertyOptions,
+  typeOptions,
 } from "../utils/options.ts";
 
 function Add() {
@@ -35,9 +36,21 @@ function Add() {
   //Данные о выбранном параметре для элементов
   const [parseByProperty, setParseByProperty] = useState<string>();
 
+  //Данные о типе проверки
+  const [type, setType] = useState<string>();
+
+  //Данные о диапазоне
+  const [range, setRange] = useState<number[]>();
+
+  //Данные о кратности
+  const [multiplesOf, setMultiplesOf] = useState<number[]>();
+
+  //Данные о вариантах (перечисление)
+  const [variants, setVariants] = useState<number | string[]>();
+
   //Данные о введеном диапазоне
-  const [min, setMin] = useState<number>();
-  const [max, setMax] = useState<number>();
+  const [min, setMin] = useState<number>(0);
+  const [max, setMax] = useState<number>(0);
 
   useEffect(() => {
     async function getDataConfig() {
@@ -155,6 +168,33 @@ function Add() {
     }
   }
 
+  function setSixthStep() {
+    if (type == undefined) {
+      setType("range");
+    }
+
+    if (type == "range") {
+      return (
+        <div className="d-flex">
+          <div className="rangeWrapper col-2">
+            <MyNumberInput onNumberChange={setMin}></MyNumberInput>
+          </div>
+          <div className="rangeWrapper col-2 offset">
+            <MyNumberInput onNumberChange={setMax}></MyNumberInput>
+          </div>
+          <>{setRange([min, max])}</>
+        </div>
+      );
+    }
+    // else if (type == "integer") {
+    //   return ("");
+    // } else if (type == "includes") {
+    //   return ();
+    // } else {
+    //   return ();
+    // }
+  }
+
   return (
     <div className="wrapper">
       <section className="section_first container ">
@@ -181,11 +221,21 @@ function Add() {
                     <>
                       {setFourthStep()}
                       {parseByProperty || cssProperty ? (
-                        <div className="rangeWrapper col-2">
-                          <MyNumberInput
-                            onNumberChange={setMin}
-                          ></MyNumberInput>
-                        </div>
+                        <>
+                          <StepTitle
+                            stepNum={6}
+                            stepTitle="Что проверяется в правиле?"
+                            input={<></>}
+                          ></StepTitle>
+                          {/* //Список с видами значений */}
+                          <div className="f-flex">
+                            <MyDropDown
+                              onElChange={setType}
+                              data={typeOptions}
+                            ></MyDropDown>
+                            {setSixthStep()}
+                          </div>
+                        </>
                       ) : (
                         ""
                       )}
@@ -197,17 +247,6 @@ function Add() {
               ) : (
                 ""
               )}
-              {/* <div className="d-flex">
-            <div className="rangeWrapper col-2">
-              <MyNumberInput onNumberChange={setMin}></MyNumberInput>
-            </div>
-            <div className="rangeWrapper col-2 offset">
-              <MyNumberInput onNumberChange={setMax}></MyNumberInput>
-            </div>
-            <p>
-              Range: от {min} до {max}
-            </p>
-          </div> */}
             </>
           ) : (
             ""

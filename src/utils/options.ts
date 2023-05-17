@@ -84,6 +84,25 @@ export const elementPropertyOptions = [
   },
 ];
 
+export const typeOptions = [
+  {
+    value: "range",
+    label: "Диапазон",
+  },
+  {
+    value: "integer",
+    label: "Значение является целым",
+  },
+  {
+    value: "includes",
+    label: "Строгое равенство",
+  },
+  {
+    value: "multiplicity",
+    label: "Кратность числу(ам)",
+  },
+];
+
 //Тип получаемых данных
 export const parseOptions = [
   {
