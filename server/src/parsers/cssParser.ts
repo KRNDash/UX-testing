@@ -5,7 +5,7 @@ import { CssParser } from "../types/Parser";
 export async function cssParser(
   parser: CssParser,
   element: ElementHandle<Element>
-): Promise<string | number> {
+): Promise<string> {
   //Получаем значение свойства
   const cssProperty = await element.evaluate(
     (el, cssProperty) => window.getComputedStyle(el)[cssProperty],
@@ -14,5 +14,5 @@ export async function cssParser(
   //Если полученное значение является фнкцией или объектом, то с ними мы работать не можем и возвращаем пустую строку
   if (typeof cssProperty === "function") return "";
   if (typeof cssProperty === "object") return "";
-  return cssProperty;
+  return String(cssProperty);
 }

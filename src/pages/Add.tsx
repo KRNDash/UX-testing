@@ -4,15 +4,21 @@ import { RulesConfig } from "../../server/src/types/Config.js";
 // import { Checker } from "../../server/src/types/Checker.js";
 import { getConfig } from "../utils/getCheckResult.js";
 import { useState, useEffect } from "react";
-import MyNumberInput from "../components/MyNumberInput.js";
-import MyTextInput from "../components/MyTextInput.js";
 import StepTitle from "../components/StepTitle.tsx";
 import {
   cssPropertyOptions,
   parseOptions,
   elementPropertyOptions,
   typeOptions,
+  imageOptions,
 } from "../utils/options.ts";
+import FirstStep from "../components/steps/FirstStep.tsx";
+import SecondStep from "../components/steps/SecondStep.tsx";
+import ThirdStep from "../components/steps/ThirdStep.tsx";
+import FourthStep from "../components/steps/FourthStep.tsx";
+import RangeInput from "../components/input/RangeInput.tsx";
+import IncludeInput from "../components/input/IncludeInput.tsx";
+import MultiplyInput from "../components/input/MultiplyInput.tsx";
 
 function Add() {
   //Конфиг правил с сервера
@@ -31,7 +37,7 @@ function Add() {
   const [parse, setParse] = useState<string>("css-property");
 
   //Данные о выбранном CSS свойстве
-  const [cssProperty, setCssProperty] = useState<string>();
+  const [cssProperty, setCssProperty] = useState<string>("font-size");
 
   //Данные о выбранном параметре для элементов
   const [parseByProperty, setParseByProperty] = useState<string>();
@@ -39,8 +45,8 @@ function Add() {
   //Данные о типе проверки
   const [type, setType] = useState<string>("range");
 
-  //Данные о диапазоне
-  const [range, setRange] = useState<number[]>([0, 1]);
+  //Данные о кратности
+  const [range, setRange] = useState<number[]>();
 
   //Данные о кратности
   const [multiplesOf, setMultiplesOf] = useState<string>();
@@ -52,8 +58,11 @@ function Add() {
   const [min, setMin] = useState<number>(0);
   const [max, setMax] = useState<number>(0);
 
+  // const range = [min, max];
+
   useEffect(() => {
     async function getDataConfig() {
+      //Получаем конфиг из LocalStorage
       const data = await getConfig();
       setData(data);
     }
@@ -66,72 +75,36 @@ function Add() {
     label: el.section,
   }));
 
-  const firstStep = (
-    <StepTitle
-      stepNum={1}
-      stepTitle="В какой раздел добавить правило?"
-      input={
-        <MyDropDown onElChange={setSection} data={titleOptions}></MyDropDown>
-      }
-    ></StepTitle>
-  );
-
-  const secondStep = (
-    <StepTitle
-      stepNum={2}
-      stepTitle="Перечислите классы, теги или id элементов для проверки"
-      input={
-        <MyTextInput
-          onTextChange={setSelector}
-          placeholder="Пример: p, div, .myTitle, #mySection, ..."
-        ></MyTextInput>
-      }
-    ></StepTitle>
-  );
-
-  const thirdStep = (
-    <StepTitle
-      stepNum={3}
-      stepTitle="Укажите название правила на русском языке"
-      input={<MyTextInput onTextChange={setRuleText}></MyTextInput>}
-    ></StepTitle>
-  );
-
   function setFourthStep() {
-    console.log(section);
+    const titleList = [
+      "Какое свойство изображения проверить?",
+      "Что проверяется в правиле?",
+    ];
+    let title = "";
+    let options = cssPropertyOptions;
+    let getter;
+    let nextStep = false;
     if (section == "3") {
-      // setParse("image");
-      const imageOptions = [{ value: "byteSize", label: "Вес изображения" }];
-
-      return (
-        <StepTitle
-          stepNum={4}
-          stepTitle={"Какое свойство изображения проверить?"}
-          input={
-            <MyDropDown
-              onElChange={setParseByProperty}
-              data={imageOptions}
-            ></MyDropDown>
-          }
-        ></StepTitle>
-      );
+      title = titleList[0];
+      options = imageOptions;
+      getter = setParseByProperty;
+      nextStep = false;
     } else {
-      return (
-        <>
-          <StepTitle
-            stepNum={4}
-            stepTitle="Что проверяется в правиле?"
-            input={
-              <MyDropDown
-                onElChange={setParse}
-                data={parseOptions}
-              ></MyDropDown>
-            }
-          ></StepTitle>
-          {setFifthStep()}
-        </>
-      );
+      title = titleList[1];
+      options = parseOptions;
+      getter = setParse;
+      nextStep = true;
     }
+    return (
+      <>
+        <FourthStep
+          stepTitle={title}
+          getter={getter}
+          options={options}
+        ></FourthStep>
+        {nextStep && setFifthStep()}
+      </>
+    );
   }
 
   function setFifthStep() {
@@ -168,31 +141,6 @@ function Add() {
     }
   }
 
-  const rangeInput = (
-    <>
-      <div className="d-flex offset-md-1">
-        <div className="rangeWrapper">
-          <MyNumberInput onNumberChange={setMin}></MyNumberInput>
-        </div>
-        <div className="rangeWrapper offset">
-          <MyNumberInput onNumberChange={setMax}></MyNumberInput>
-        </div>
-      </div>
-    </>
-  );
-
-  const includesInput = (
-    <div className="includesWrapper">
-      <MyTextInput onTextChange={setVariants}></MyTextInput>
-    </div>
-  );
-
-  const multiplyInput = (
-    <div className="includesWrapper">
-      <MyTextInput onTextChange={setMultiplesOf}></MyTextInput>
-    </div>
-  );
-
   function setSixthStep() {
     if (type == undefined) {
       return "";
@@ -200,11 +148,11 @@ function Add() {
 
     {
       if (type == "range") {
-        return rangeInput;
+        return <RangeInput setMin={setMin} setMax={setMax}></RangeInput>;
       } else if (type == "includes") {
-        return includesInput;
+        return <IncludeInput setVariants={setVariants}></IncludeInput>;
       } else if (type == "multiplicity") {
-        return multiplyInput;
+        return <MultiplyInput setMultiplesOf={setMultiplesOf}></MultiplyInput>;
       } else {
         return "";
       }
@@ -226,64 +174,60 @@ function Add() {
       </section>
       <section className="section_second">
         <div className="container row">
-          {firstStep}
-          {section ? (
+          <FirstStep
+            setSection={setSection}
+            titleOptions={titleOptions}
+          ></FirstStep>
+          {section && (
             <>
-              {secondStep}
-              {selector ? (
+              <SecondStep setSelector={setSelector}></SecondStep>
+              {selector && (
                 <>
-                  {thirdStep}
-                  {ruleText ? (
+                  <ThirdStep setRuleText={setRuleText}></ThirdStep>
+                  {ruleText && (
                     <>
                       {setFourthStep()}
-                      {parseByProperty || cssProperty ? (
-                        <>
-                          <StepTitle
-                            stepNum={6}
-                            stepTitle="Что проверяется в правиле?"
-                            input={
-                              <>
-                                <div className="d-flex justify-content-between">
-                                  <div className="col-6">
-                                    <MyDropDown
-                                      onElChange={setType}
-                                      data={typeOptions}
-                                    ></MyDropDown>
+                      {parseByProperty ||
+                        (cssProperty && (
+                          <>
+                            <StepTitle
+                              stepNum={6}
+                              stepTitle="Что проверяется в правиле?"
+                              input={
+                                <>
+                                  <div className="d-flex justify-content-between">
+                                    <div className="col-6">
+                                      <MyDropDown
+                                        onElChange={setType}
+                                        data={typeOptions}
+                                      ></MyDropDown>
+                                    </div>
+                                    <div className="">{setSixthStep()}</div>
                                   </div>
-                                  <div className="">{setSixthStep()}</div>
-                                </div>
-                              </>
-                            }
-                          ></StepTitle>
-                          {range || multiplesOf || variants ? (
-                            <>
-                              <div className="d-flex flex-row-reverse">
-                                <button className="btn col-2 btn-primary">
-                                  Добавить правило
-                                </button>
-                                <button className="btn btn-outline-primary col-2">
-                                  Сбросить всё
-                                </button>
-                              </div>
-                            </>
-                          ) : (
-                            ""
-                          )}
-                        </>
-                      ) : (
-                        ""
-                      )}
+                                </>
+                              }
+                            ></StepTitle>
+                            {range ||
+                              multiplesOf ||
+                              (variants && (
+                                <>
+                                  <div className="d-flex flex-row-reverse">
+                                    <button className="btn col-2 btn-primary">
+                                      Добавить правило
+                                    </button>
+                                    <button className="btn btn-outline-primary col-2">
+                                      Сбросить всё
+                                    </button>
+                                  </div>
+                                </>
+                              ))}
+                          </>
+                        ))}
                     </>
-                  ) : (
-                    ""
                   )}
                 </>
-              ) : (
-                ""
               )}
             </>
-          ) : (
-            ""
           )}
         </div>
       </section>

@@ -134,6 +134,19 @@ body {
   padding-top: 20px;
 }
 
+.resultPercent {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.ruleName_tr {
+  border-bottom: none;
+}
+
+.tdWrapper {
+  width: 700px;
+}
+
 .numberCircle {
   border-radius: 50%;
   width: 40px;
@@ -174,6 +187,11 @@ body {
 
 .td_error strong {
   color: rgb(182, 0, 0);
+}
+
+.errorText {
+  color: rgb(182, 0, 0);
+  padding: 5px 0;
 }
 
 .table-title {

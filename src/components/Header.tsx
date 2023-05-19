@@ -41,7 +41,7 @@ export default function Header() {
               </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link className="link" to="/">
+              <Link className="link" to="/download">
                 Скачать правила
               </Link>
             </Nav.Link>

@@ -1,10 +1,11 @@
 import "../styles/style.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCheckResult } from "../utils/getCheckResult.js";
 import { RulesConfig } from "../../server/src/types/Config.js";
 import { CheckResult } from "../../server/src/types/Checker.js";
 import { MyTable } from "../components/MyTable.js";
 import { testUrl } from "../utils/testUrl.js";
+import { getLocalConfig, setServerConfig } from "../utils/localStorage.js";
 
 function Home() {
   //Данные с резульататами тестирования
@@ -13,27 +14,69 @@ function Home() {
   //Адрес сайта для тестирования
   const [url, setUrl] = useState("");
 
+  //Адрес сайта для тестирования
+  // const [percentList, setPercentList] = useState<number[]>();
+
   //Индикатор загрузки
   const [loading, setLoading] = useState(false);
 
   //Индикатор ошибки url
   const [error, setError] = useState(false);
 
+  //Если LocalStorage пустой -> скачать конфиг с сервера
+  useEffect(() => {
+    async function setConfig() {
+      const config = localStorage.getItem("config");
+      if (config) return;
+      // setLoading(true);
+      await setServerConfig();
+      console.log(data);
+      // setLoading(false);
+    }
+    setConfig();
+  }, [data]);
+
   async function getResult() {
     if (url && url.length > 0 && testUrl(url)) {
       setLoading(true);
       setError(false);
-      const data = await getCheckResult(url);
+      const data = await getCheckResult(url, await getLocalConfig());
+      console.log(data);
       setLoading(false);
       setData(data);
     } else {
       setLoading(false);
       setError(true);
-      // alert(`Некорректный url: ` + url);
     }
   }
 
-  const table = data?.map((section) => <MyTable section={section}></MyTable>);
+  // function showPercentResult() {
+  //   let sum = 0;
+  //   let resultPercent = 0;
+
+  //   for (let i = 0; i < percentList.length; i++) {
+  //     sum += percentList[i];
+  //   }
+
+  //   resultPercent = sum / percentList.length;
+  //   console.log(percentList);
+  //   return (
+  //     <>
+  //       <p>{resultPercent}</p>
+  //     </>
+  //   );
+  // }
+
+  const table = data?.map((section) => (
+    <>
+      <MyTable
+        // setPercentList={setPercentList}
+        key={section.id}
+        section={section}
+      ></MyTable>
+    </>
+  ));
+
   return (
     <div className="wrapper">
       <section className="section_first">

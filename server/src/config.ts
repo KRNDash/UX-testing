@@ -7,57 +7,46 @@ export const config: RulesConfig[] = [
     rules: [
       {
         id: 1,
-        selector: "p, div, li, span",
-        ruleName: "Размер шрифта на ПК от 14px до 24px, целые числа или 330px",
+        selector: "p, li",
+        ruleName: "Размер шрифта на ПК от 12px до 24px",
         сheckers: [
           {
             type: "range",
             toBeParsed: "css-property",
             cssProperty: "fontSize",
-            range: [14, 24],
-          },
-          {
-            type: "integer",
-            toBeParsed: "css-property",
-            cssProperty: "fontSize",
-          },
-          {
-            type: "includes",
-            toBeParsed: "css-property",
-            cssProperty: "fontSize",
-            variants: [330],
+            range: [12, 24],
           },
         ],
       },
       {
         id: 2,
         selector: "p",
-        ruleName: "Межстрочное расстоние от 120% до 180% или normal",
+        ruleName: "Межстрочное расстоние от 100% до 180% или normal",
         сheckers: [
           {
             type: "range",
             toBeParsed: "css-property",
             cssProperty: "lineHeight",
-            range: [120, 180],
+            range: [1, 1.8],
           },
           {
             type: "includes",
             toBeParsed: "css-property",
             cssProperty: "lineHeight",
-            variants: ["normal"],
+            variants: ["normal", "none"],
           },
         ],
       },
       {
         id: 3,
         selector: "p",
-        ruleName: "Межбуквенное расстояние от 0 до 0.4",
+        ruleName: "Межбуквенное расстояние от 0 до 0.5",
         сheckers: [
           {
             type: "range",
             toBeParsed: "css-property",
             cssProperty: "letterSpacing",
-            range: [0, 0.4],
+            range: [0, 0.5],
           },
         ],
       },
@@ -70,7 +59,7 @@ export const config: RulesConfig[] = [
             type: "includes",
             toBeParsed: "css-property",
             cssProperty: "textTransform",
-            variants: ["lowercase"],
+            variants: ["lowercase", "none"],
           },
         ],
       },
@@ -89,27 +78,7 @@ export const config: RulesConfig[] = [
             type: "includes",
             toBeParsed: "css-property",
             cssProperty: "fontWeight",
-            variants: ["light", "medium"],
-          },
-        ],
-      },
-      {
-        id: 6,
-        selector: "p",
-        ruleName:
-          "Ширина текстового блока не больше 80 символов и делится на 2 или 3 или 5",
-        сheckers: [
-          {
-            type: "range",
-            toBeParsed: "text-content",
-            parseBy: "count",
-            range: [null, 80],
-          },
-          {
-            type: "multiplicity",
-            toBeParsed: "text-content",
-            parseBy: "count",
-            multiplesOf: [2, 3, 5],
+            variants: ["light", "medium", 100, 200, 300, 400, 500],
           },
         ],
       },
@@ -142,6 +111,19 @@ export const config: RulesConfig[] = [
             toBeParsed: "text-content",
             parseBy: "count",
             range: [1, null],
+          },
+        ],
+      },
+      {
+        id: 3,
+        selector: "h1, h2, h3",
+        ruleName: "В заголовке не больше 80 символов",
+        сheckers: [
+          {
+            type: "range",
+            toBeParsed: "text-content",
+            parseBy: "count",
+            range: [null, 80],
           },
         ],
       },

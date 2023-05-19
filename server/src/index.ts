@@ -16,6 +16,8 @@ const app: Express = express();
 
 //Используем статическую папку
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
 //открывается через порт 3000
@@ -25,11 +27,15 @@ let browser: Browser | null = null;
 //Где принимаем запрос
 //Request - запрос к серверу
 //Response - ответ от сервера
-app.get("/api/check", async (req: Request, res: Response) => {
+app.post("/api/check", async (req: Request, res: Response) => {
+  //Получаем адрес страницы с запроса
   const url = String(req.query.url);
-  // TODO: isValidUrl работает не очень хорошо
-  // if (!isValidUrl(String(url)))
-  //   return res.json({ error: "URL не валиден", value: url }).status(400);
+
+  //Получаем конфиг с запроса
+  const newConfig: RulesConfig[] = req.body;
+  let conf;
+
+  // console.log(newConfig);
 
   //Что будем получать
   if (!browser) return res.json({ message: "Повторите попытку позднее" });
@@ -38,11 +44,12 @@ app.get("/api/check", async (req: Request, res: Response) => {
   const page = await browser.newPage();
 
   try {
+    !newConfig ? (conf = config.entries()) : (conf = config.entries());
+
     //Переменная для хранения результатов тестирования
     const results: RulesConfig<CheckResult[]>[] = [];
-
-    //Проходимся по конфигу правил
-    for (const [sectionIndex, ruleSection] of config.entries()) {
+    //Проходимся по конфигу правил ()
+    for (const [sectionIndex, ruleSection] of conf) {
       //1 уровень списка правил
       results.push({ ...ruleSection, rules: [] });
 
@@ -72,13 +79,14 @@ app.get("/api/check", async (req: Request, res: Response) => {
     res.json(results);
   } catch (error) {
     //В случае ошибки сервер отправит текст ошибки и статус 400
-    res.json({ message: "Ошибка: " + String(error) }).status(400);
+    res.status(400).json({ message: "Ошибка: " + String(error) });
   } finally {
     //Закрываем доступ к странице puppeteer
     await page.close();
   }
 });
 
+//Получаем исходный конфиг (без результатов тестирования)
 app.get("/api", async (req: Request, res: Response) => {
   // const url = String(req.query.url);
 

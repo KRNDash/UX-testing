@@ -18,7 +18,7 @@ export async function getCheckResult(
   const result: CheckResult[] = [];
 
   //Проходимся по всем элементам, полученным со страницы
-  for (const elementValue of parsedElements) {
+  for (const [index, elementValue] of parsedElements.entries()) {
     try {
       //Проверка на диапазон
       if (checker.type === "range") {
@@ -38,8 +38,15 @@ export async function getCheckResult(
       }
       // console.log(result);
     } catch (error) {
-      if (error instanceof CheckResult) result.push(error);
-      else console.error(error);
+      if (error instanceof CheckResult) {
+        result.push(error);
+      } else console.error(error);
+    } finally {
+      if (!result[index].result) {
+        result[index].resultText = String(
+          await elementList[index].evaluate((el) => el.textContent)
+        );
+      }
     }
   }
 

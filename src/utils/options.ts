@@ -118,3 +118,5 @@ export const parseOptions = [
     label: "Свойства элементов (атрибуты)",
   },
 ];
+
+export const imageOptions = [{ value: "byteSize", label: "Вес изображения" }];

@@ -1,7 +1,6 @@
 import "../styles/style.css";
 import Select from "react-select";
-
-type DataType = { value: string; label: string };
+import { DataType } from "../utils/Types";
 
 type Props = {
   onElChange: (setData: any) => void;
