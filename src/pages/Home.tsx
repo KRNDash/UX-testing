@@ -1,11 +1,12 @@
 import "../styles/style.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getCheckResult } from "../utils/getCheckResult.js";
 import { RulesConfig } from "../../server/src/types/Config.js";
 import { CheckResult } from "../../server/src/types/Checker.js";
 import { MyTable } from "../components/MyTable.js";
 import { testUrl } from "../utils/testUrl.js";
 import { getLocalConfig, setServerConfig } from "../utils/localStorage.js";
+import { DonutDatasetTransition } from "../components/DonutDatasetTransition.js";
 
 function Home() {
   //Данные с резульататами тестирования
@@ -13,9 +14,6 @@ function Home() {
 
   //Адрес сайта для тестирования
   const [url, setUrl] = useState("");
-
-  //Адрес сайта для тестирования
-  // const [percentList, setPercentList] = useState<number[]>();
 
   //Индикатор загрузки
   const [loading, setLoading] = useState(false);
@@ -50,30 +48,57 @@ function Home() {
     }
   }
 
-  // function showPercentResult() {
-  //   let sum = 0;
-  //   let resultPercent = 0;
+  function showNumList() {
+    let resultPercent = 0;
+    const textList = document.getElementsByClassName("resultPercent");
+    const list = [];
+    let sum = 0;
 
-  //   for (let i = 0; i < percentList.length; i++) {
-  //     sum += percentList[i];
-  //   }
+    for (let i = 0; i < textList.length; i++) {
+      const num = parseInt(String(textList[i].textContent).replace("%", ""));
+      if (!Number.isNaN(num)) {
+        list.push(num);
+      }
+      // console.log(num);
+    }
 
-  //   resultPercent = sum / percentList.length;
-  //   console.log(percentList);
-  //   return (
-  //     <>
-  //       <p>{resultPercent}</p>
-  //     </>
-  //   );
-  // }
+    list.map((el) => {
+      sum = sum + el;
+    });
+
+    resultPercent = parseFloat((sum / list.length).toFixed(0));
+
+    // const dataChart = [
+    //   { name: "Результат", value: resultPercent },
+    //   { name: "Результат2", value: 100 - resultPercent },
+    // ];
+
+    let style = { backgroundColor: "#fff", color: "#fff" };
+
+    if (resultPercent < 26) {
+      style = { backgroundColor: "#FFE3E3", color: "#FF2D2D" };
+    } else if (resultPercent >= 26 && resultPercent < 51) {
+      style = { backgroundColor: "#FFE9D6", color: "#FF7612" };
+    } else if (resultPercent >= 51 && resultPercent < 76) {
+      style = { backgroundColor: "#FFF5D1", color: "#FDB220" };
+    } else {
+      style = { backgroundColor: "#DCFCE5", color: "#4FC670" };
+    }
+
+    // return <>{resultPercent}</>;
+    return (
+      <>
+        <div className="resultCircle" style={style}>
+          {resultPercent + "%"}
+        </div>
+        {/* <DonutDatasetTransition width={800} height={300} data={dataChart} /> */}
+      </>
+    );
+  }
 
   const table = data?.map((section) => (
     <>
-      <MyTable
-        // setPercentList={setPercentList}
-        key={section.id}
-        section={section}
-      ></MyTable>
+      <MyTable key={section.id} section={section}></MyTable>
     </>
   ));
 
@@ -143,10 +168,13 @@ function Home() {
           <img className="gif" src="/src/assets/images/loading.gif" alt="" />
         )}
         {data && !loading && (
-          <h2 className="text_h2">Результаты тестирования</h2>
+          <>
+            <h2 className="text_h2">Результаты тестирования</h2>
+          </>
         )}
         <div className="table-container col-8">
           {data && !loading ? table : <div></div>}
+          {table && !loading ? <>{showNumList()}</> : ""}
         </div>
       </section>
     </div>

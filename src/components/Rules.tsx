@@ -5,10 +5,9 @@ import "../styles/style.css";
 
 type Props = {
   rule: Rule<CheckResult[]>;
-  setPercent: (setPercent: any) => void;
 };
 
-export default function Rules({ rule, setPercent }: Props) {
+export default function Rules({ rule }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   //Проверка на выполнение правила (поиск ошибки)
@@ -31,6 +30,7 @@ export default function Rules({ rule, setPercent }: Props) {
               String(result.value) +
               " )"
           );
+          // console.log(result.value);
           errorCounter++;
         }
       });
@@ -40,7 +40,6 @@ export default function Rules({ rule, setPercent }: Props) {
     const percent = parseFloat(
       (100 - (errorCounter / length) * 100).toFixed(1)
     );
-    setPercent(percent);
 
     return {
       percent: percent,

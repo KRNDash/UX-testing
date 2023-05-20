@@ -7,13 +7,13 @@ import { useState } from "react";
 
 type Props = {
   section: RulesConfig<CheckResult[]> | null;
-  // setPercentList: (setPercentList: any) => void;
 };
 
 //Таблица с результатами по одной секции
 export function MyTable({ section }: Props) {
-  const [percent, setPercent] = useState(0);
-  // const percentList: number[] = [];
+  // function getList() {
+  //   setPercentList(percentList);
+  // }
 
   return (
     <>
@@ -28,13 +28,11 @@ export function MyTable({ section }: Props) {
         <tbody>
           {section?.rules.map((rule) => (
             <>
-              <Rules setPercent={setPercent} rule={rule}></Rules>
-              {/* {percentList.push(percent)} */}
+              <Rules rule={rule}></Rules>
             </>
           ))}
         </tbody>
       </table>
-      {/* {setPercentList(percentList)} */}
     </>
   );
 }
