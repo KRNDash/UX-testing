@@ -3,7 +3,6 @@ import { RulesConfig } from "../../server/src/types/Config";
 import { CheckResult } from "../../server/src/types/Checker";
 // import { useState } from "react";
 import Rules from "./Rules";
-import { useState } from "react";
 
 type Props = {
   section: RulesConfig<CheckResult[]> | null;

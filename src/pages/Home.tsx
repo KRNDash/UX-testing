@@ -1,12 +1,11 @@
 import "../styles/style.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCheckResult } from "../utils/getCheckResult.js";
 import { RulesConfig } from "../../server/src/types/Config.js";
 import { CheckResult } from "../../server/src/types/Checker.js";
 import { MyTable } from "../components/MyTable.js";
 import { testUrl } from "../utils/testUrl.js";
 import { getLocalConfig, setServerConfig } from "../utils/localStorage.js";
-import { DonutDatasetTransition } from "../components/DonutDatasetTransition.js";
 
 function Home() {
   //Данные с резульататами тестирования
@@ -91,7 +90,6 @@ function Home() {
         <div className="resultCircle" style={style}>
           {resultPercent + "%"}
         </div>
-        {/* <DonutDatasetTransition width={800} height={300} data={dataChart} /> */}
       </>
     );
   }
