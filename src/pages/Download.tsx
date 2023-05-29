@@ -8,7 +8,7 @@ function Download() {
 
   function handleClick() {
     reloadConfig();
-    location.reload();
+    // location.reload();
   }
   return (
     <div className="wrapper">

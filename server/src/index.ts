@@ -44,7 +44,11 @@ app.post("/api/check", async (req: Request, res: Response) => {
   const page = await browser.newPage();
 
   try {
-    !newConfig ? (conf = config.entries()) : (conf = config.entries());
+    if (!newConfig) {
+      conf = config.entries();
+    } else {
+      conf = newConfig.entries();
+    }
 
     //Переменная для хранения результатов тестирования
     const results: RulesConfig<CheckResult[]>[] = [];
@@ -79,6 +83,7 @@ app.post("/api/check", async (req: Request, res: Response) => {
     res.json(results);
   } catch (error) {
     //В случае ошибки сервер отправит текст ошибки и статус 400
+    console.log(error);
     res.status(400).json({ message: "Ошибка: " + String(error) });
   } finally {
     //Закрываем доступ к странице puppeteer

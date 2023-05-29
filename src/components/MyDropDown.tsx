@@ -1,10 +1,10 @@
 import "../styles/style.css";
 import Select from "react-select";
-import { DataType } from "../utils/Types";
+import { DataType, cssType, typeType } from "../utils/Types";
 
 type Props = {
   onElChange: (setData: any) => void;
-  data: DataType[];
+  data: DataType[] | typeType[] | cssType[];
 };
 
 export default function MyDropDown({ data, onElChange }: Props) {

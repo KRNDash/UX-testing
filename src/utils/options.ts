@@ -1,14 +1,16 @@
-export const cssPropertyOptions = [
+import { cssType, typeType } from "./Types";
+
+export const cssPropertyOptions: cssType[] = [
   {
-    value: "font-size",
+    value: "fontSize",
     label: "Размер шрифта (font-size)",
   },
   {
-    value: "font-style",
+    value: "fontStyle",
     label: "Стиль начертания шрифта (font-style)",
   },
   {
-    value: "font-weight",
+    value: "fontWeight",
     label: "Насыщенность шрифта (font-weight)",
   },
   {
@@ -16,23 +18,23 @@ export const cssPropertyOptions = [
     label: "Цвет элемента (color)",
   },
   {
-    value: "background-color",
+    value: "backgroundColor",
     label: "Цвет фона элемента (background-color)",
   },
   {
-    value: "background-position",
+    value: "backgroundPosition",
     label: "Начальное положение фонового изображения (background-position)",
   },
   {
-    value: "border-width",
+    value: "borderWidth",
     label: "Толщина обводки (border-width)",
   },
   {
-    value: "border-radius",
+    value: "borderRadius",
     label: "Скругление границ элемента (border-width)",
   },
   {
-    value: "border-color",
+    value: "borderColor",
     label: "Цвет обводки (border-color)",
   },
   {
@@ -48,27 +50,27 @@ export const cssPropertyOptions = [
     label: "Ширина элемента (width)",
   },
   {
-    value: "line-height",
+    value: "lineHeight",
     label: "Межстрочный интервал текста (line-height)",
   },
   {
-    value: "letter-spacing",
+    value: "letterSpacing",
     label: "Расстояние между символами (letter-spacing)",
   },
   {
-    value: "text-align",
+    value: "textAlign",
     label: "Выравнивание текста (text-align)",
   },
   {
-    value: "text-decoration",
+    value: "textDecoration",
     label: "Оформление текста (text-decoration)",
   },
   {
-    value: "text-decoration-color",
+    value: "textDecorationColor",
     label: "Устанавливает цвет оформления текста (text-decoration-color)",
   },
   {
-    value: "text-transform",
+    value: "textTransform",
     label: "Устанавливает регистр текста (text-transform)",
   },
 ];
@@ -84,7 +86,7 @@ export const elementPropertyOptions = [
   },
 ];
 
-export const typeOptions = [
+export const typeOptions: typeType[] = [
   {
     value: "range",
     label: "Диапазон",
@@ -111,7 +113,7 @@ export const parseOptions = [
   },
   {
     value: "text-content",
-    label: "Текстовое наполнение",
+    label: "Количество символов в тексте",
   },
   {
     value: "elements",

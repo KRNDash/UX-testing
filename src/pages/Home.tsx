@@ -14,6 +14,13 @@ function Home() {
   //Адрес сайта для тестирования
   const [url, setUrl] = useState("");
 
+  const [percent, setPercent] = useState<number | undefined>(undefined);
+
+  const [style, setStyle] = useState<React.CSSProperties>({
+    backgroundColor: "#fff",
+    color: "#fff",
+  });
+
   //Индикатор загрузки
   const [loading, setLoading] = useState(false);
 
@@ -23,24 +30,35 @@ function Home() {
   //Если LocalStorage пустой -> скачать конфиг с сервера
   useEffect(() => {
     async function setConfig() {
-      const config = localStorage.getItem("config");
-      if (config) return;
+      // const config = localStorage.getItem("config");
+      if (localStorage.length !== 0) {
+        console.log("всё хорошо");
+      } else {
+        console.log("всё плохо");
+        await setServerConfig();
+      }
       // setLoading(true);
-      await setServerConfig();
+
       console.log(data);
       // setLoading(false);
     }
     setConfig();
   }, [data]);
 
+  useEffect(() => {
+    setPercent(showNumList());
+  }, [data]);
+
   async function getResult() {
     if (url && url.length > 0 && testUrl(url)) {
       setLoading(true);
+      setPercent(undefined);
       setError(false);
-      const data = await getCheckResult(url, await getLocalConfig());
+      const data = await getCheckResult(url, getLocalConfig());
       console.log(data);
       setLoading(false);
       setData(data);
+      showNumList();
     } else {
       setLoading(false);
       setError(true);
@@ -50,6 +68,11 @@ function Home() {
   function showNumList() {
     let resultPercent = 0;
     const textList = document.getElementsByClassName("resultPercent");
+
+    if (textList.length === 0) {
+      return undefined;
+    }
+
     const list = [];
     let sum = 0;
 
@@ -67,31 +90,16 @@ function Home() {
 
     resultPercent = parseFloat((sum / list.length).toFixed(0));
 
-    // const dataChart = [
-    //   { name: "Результат", value: resultPercent },
-    //   { name: "Результат2", value: 100 - resultPercent },
-    // ];
-
-    let style = { backgroundColor: "#fff", color: "#fff" };
-
     if (resultPercent < 26) {
-      style = { backgroundColor: "#FFE3E3", color: "#FF2D2D" };
+      setStyle({ backgroundColor: "#FFE3E3", color: "#FF2D2D" });
     } else if (resultPercent >= 26 && resultPercent < 51) {
-      style = { backgroundColor: "#FFE9D6", color: "#FF7612" };
+      setStyle({ backgroundColor: "#FFE9D6", color: "#FF7612" });
     } else if (resultPercent >= 51 && resultPercent < 76) {
-      style = { backgroundColor: "#FFF5D1", color: "#FDB220" };
+      setStyle({ backgroundColor: "#FFF5D1", color: "#FDB220" });
     } else {
-      style = { backgroundColor: "#DCFCE5", color: "#4FC670" };
+      setStyle({ backgroundColor: "#DCFCE5", color: "#4FC670" });
     }
-
-    // return <>{resultPercent}</>;
-    return (
-      <>
-        <div className="resultCircle" style={style}>
-          {resultPercent + "%"}
-        </div>
-      </>
-    );
+    return resultPercent;
   }
 
   const table = data?.map((section) => (
@@ -172,7 +180,11 @@ function Home() {
         )}
         <div className="table-container col-8">
           {data && !loading ? table : <div></div>}
-          {table && !loading ? <>{showNumList()}</> : ""}
+          {percent !== undefined && (
+            <div className="resultCircle" style={style}>
+              {percent + "%"}
+            </div>
+          )}
         </div>
       </section>
     </div>

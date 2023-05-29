@@ -11,11 +11,11 @@ import { useEffect } from "react";
 
 function App() {
   //Если LocalStorage пустой -> скачать конфиг с сервера
-  useEffect(() => {
-    if (!localStorage.getItem("config")) {
-      setServerConfig();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!localStorage.getItem("config")) {
+  //     setServerConfig();
+  //   }
+  // }, []);
 
   return (
     <>

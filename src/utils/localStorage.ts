@@ -2,7 +2,7 @@ import { RulesConfig } from "../../server/src/types/Config";
 import { getConfig } from "../utils/getCheckResult.js";
 
 //Получить значение config из LocalStorage (скачивание правил, тестирование)
-export const getLocalConfig = async (): Promise<RulesConfig[]> => {
+export const getLocalConfig = (): RulesConfig[] => {
   const config = JSON.parse(String(localStorage.getItem("config")));
   // console.log(config);
   return config;
