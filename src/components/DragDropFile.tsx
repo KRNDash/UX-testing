@@ -1,21 +1,41 @@
-import { useRef, useState } from "react";
+import { DragEvent, ChangeEvent, useRef, useState, useEffect } from "react";
 import "../styles/dragDropStyle.css";
 import { RulesConfig } from "../../server/src/types/Config";
-
-function handleFile(files) {
-  //   alert("Number of files: " + files.length);
-  console.log(files[0]);
-}
+import { setLocalConfig } from "../utils/localStorage";
 
 // drag drop file component
 export function DragDropFile() {
+  // const [file, setFile] = useState(false);
+
+  const [text, setText] = useState(
+    "Перетащите файл с&nbsp;правилами в&nbsp;эту область"
+  );
+
+  async function handleFile(files: FileList) {
+    if (files[0].type !== "application/json") {
+      alert("Файл должен быть в формате json");
+      return;
+    }
+    try {
+      const newConfig: RulesConfig[] = JSON.parse(await files[0].text());
+      setLocalConfig(newConfig);
+      setText("Файл «" + files[0].name + "» успешно загружен");
+    } catch {
+      alert("Файл содержит ошибки");
+    }
+  }
+
+  // useEffect(() => {
+
+  // }, [file]);
+
   // drag state
   const [dragActive, setDragActive] = useState(false);
   // ref
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   // handle drag events
-  const handleDrag = function (e) {
+  const handleDrag = function (e: DragEvent<HTMLElement>) {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragenter" || e.type === "dragover") {
@@ -26,25 +46,33 @@ export function DragDropFile() {
   };
 
   // triggers when file is dropped
-  const handleDrop = function (e) {
+  const handleDrop = async function (e: DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files);
+      await handleFile(e.dataTransfer.files);
     }
   };
 
   // triggers when file is selected with click
-  const handleChange = function (e) {
+  const handleChange = async function (e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
-    if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files);
+
+    const target = e.target as HTMLInputElement;
+    if (!target) return;
+
+    if (target.files && target.files[0]) {
+      await handleFile(target.files);
     }
   };
 
   // triggers the input when the button is clicked
   const onButtonClick = () => {
+    if (!inputRef.current) {
+      return;
+    }
     inputRef.current.click();
   };
 
@@ -61,6 +89,7 @@ export function DragDropFile() {
           id="input-file-upload"
           multiple={true}
           onChange={handleChange}
+          accept=".json"
         />
         <label
           id="label-file-upload"
@@ -73,13 +102,7 @@ export function DragDropFile() {
               src="/src/assets/images/download.svg"
               alt="Загрузить правила"
             />
-            <p className="description">
-              Перетащите файл с&nbsp;правилами в&nbsp;эту область
-            </p>
-
-            {/* <button className="upload-button" onClick={onButtonClick}>
-              Выберите на устройстве
-            </button> */}
+            <p className="description">{text}</p>
           </div>
         </label>
         <button

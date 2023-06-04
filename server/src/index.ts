@@ -24,9 +24,6 @@ app.use(cors());
 const port = process.env.PORT || 3000;
 let browser: Browser | null = null;
 
-//Где принимаем запрос
-//Request - запрос к серверу
-//Response - ответ от сервера
 app.post("/api/check", async (req: Request, res: Response) => {
   //Получаем адрес страницы с запроса
   const url = String(req.query.url);
@@ -49,6 +46,8 @@ app.post("/api/check", async (req: Request, res: Response) => {
     } else {
       conf = newConfig.entries();
     }
+
+    //...
 
     //Переменная для хранения результатов тестирования
     const results: RulesConfig<CheckResult[]>[] = [];
@@ -93,8 +92,6 @@ app.post("/api/check", async (req: Request, res: Response) => {
 
 //Получаем исходный конфиг (без результатов тестирования)
 app.get("/api", async (req: Request, res: Response) => {
-  // const url = String(req.query.url);
-
   //Что будем получать
   if (!browser) return res.json({ message: "Повторите попытку позднее" });
 

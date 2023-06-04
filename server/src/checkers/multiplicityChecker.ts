@@ -8,7 +8,7 @@ export function multiplicityChecker(
 ): CheckResult {
   if (Array.isArray(value))
     throw new CheckResult(checker, value, false, "Представлен массив значений");
-  else if (typeof value === "string") value = Number(value);
+  else if (typeof value === "string") value = parseInt(value);
   if (isNaN(value)) throw new CheckResult(checker, value, false, "");
   return new CheckResult(
     checker,

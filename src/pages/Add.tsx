@@ -21,7 +21,7 @@ import IncludeInput from "../components/input/IncludeInput.tsx";
 import MultiplyInput from "../components/input/MultiplyInput.tsx";
 import useGetLocalConfig from "../hooks/useGetLocalConfig.ts";
 import { MyRule } from "../utils/Types.ts";
-import { getLocalConfig, setLocalConfig } from "../utils/localStorage.ts";
+import { setLocalConfig } from "../utils/localStorage.ts";
 
 type Props = {
   config: RulesConfig[];
@@ -36,9 +36,9 @@ function Add() {
     // console.log(config);
     config[sectionId - 1].rules.push(rule);
     setLocalConfig(config);
-    const newConfig = getLocalConfig();
-    // console.log(newConfig);
-    // console.log(config);
+    alert(
+      "Правило" + " «" + rule.ruleName + "» " + "успешно добавлено в список!"
+    );
   }
 
   return <AddRuleForm config={config} setRule={setRule}></AddRuleForm>;
@@ -90,7 +90,13 @@ function AddRuleForm({ config, setRule }: Props) {
   const [max, setMax] = useState<number>(0);
 
   useEffect(() => {
-    setRange([min, max]);
+    if (min === 0) {
+      setRange([null, max]);
+    } else if (max === 0) {
+      setRange([min, null]);
+    } else {
+      setRange([min, max]);
+    }
   }, [min, max]);
 
   // const range = [min, max];
@@ -170,7 +176,6 @@ function AddRuleForm({ config, setRule }: Props) {
 
   function setSixthStep() {
     if (type == undefined) {
-      // console.log("всё похо");
       return "";
     }
 
@@ -214,7 +219,7 @@ function AddRuleForm({ config, setRule }: Props) {
         newRule.parseBy = parseByProperty;
         break;
       case "images":
-        newRule.parseBy = "byteSize";
+        newRule.parseBy = parseByProperty;
         break;
       default:
         break;
@@ -222,6 +227,7 @@ function AddRuleForm({ config, setRule }: Props) {
     const re = /\s*,\s*/;
     switch (type) {
       case "range":
+        console.log(range + "");
         newRule.range = range;
         break;
       case "includes":
@@ -276,8 +282,8 @@ function AddRuleForm({ config, setRule }: Props) {
                       {setFourthStep()}
                       <>
                         <StepTitle
-                          stepNum={6}
-                          stepTitle="Что проверяется в правиле?"
+                          stepNum={5}
+                          stepTitle="Укажите значения для проверки"
                           input={
                             <>
                               <div className="d-flex justify-content-between">

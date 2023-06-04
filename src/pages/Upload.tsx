@@ -4,7 +4,6 @@ import { MyTable2 } from "../components/MyTable";
 import useGetLocalConfig from "../hooks/useGetLocalConfig";
 import "../styles/style.css";
 import "../styles/dragDropStyle.css";
-import { getLocalConfig, setServerConfig } from "../utils/localStorage";
 
 type Props = {
   config: RulesConfig[];

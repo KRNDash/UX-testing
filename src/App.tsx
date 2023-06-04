@@ -11,12 +11,12 @@ import { useEffect } from "react";
 import Upload from "./pages/Upload";
 
 function App() {
-  //Если LocalStorage пустой -> скачать конфиг с сервера
-  // useEffect(() => {
-  //   if (!localStorage.getItem("config")) {
-  //     setServerConfig();
-  //   }
-  // }, []);
+  // Если LocalStorage пустой -> скачать конфиг с сервера
+  useEffect(() => {
+    if (!localStorage.getItem("config")) {
+      setServerConfig();
+    }
+  }, []);
 
   return (
     <>
