@@ -13,6 +13,13 @@ export function setLocalConfig(config: RulesConfig[]) {
   localStorage.setItem("config", JSON.stringify(config));
 }
 
+// //Получить значение config из LocalStorage (скачивание правил, тестирование)
+// export const getUploadConfig = (): RulesConfig[] => {
+//   const config = JSON.parse(String(localStorage.getItem("config")));
+//   // console.log(config);
+//   return config;
+// };
+
 //Установить значение config в LocalStorage с сервера (вернуть по умолчанию)
 export async function setServerConfig() {
   try {

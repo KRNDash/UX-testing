@@ -12,7 +12,7 @@ export type typeType = {
   label: string;
 };
 
-export type MyChecker = {
+export type MyRule = {
   type: "range" | "integer" | "includes" | "multiplicity";
   toBeParsed: "css-property" | "text-content" | "elements" | "images";
   cssProperty?: keyof CSSStyleDeclaration;

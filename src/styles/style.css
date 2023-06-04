@@ -5,8 +5,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-
-
 .wrapper {
   margin-bottom: 100px;
 }
@@ -38,7 +36,6 @@ body {
   margin: 0 auto;
 }
 
-
 .search-row {
   justify-content: space-evenly;
   margin: 0 auto;
@@ -46,6 +43,12 @@ body {
 
 .section_first {
   margin-top: 70px;
+}
+
+.btn {
+  /* padding: 10px 30px; */
+  font-size: 18px;
+  /* margin: 5px; */
 }
 
 #test-btn-js {
@@ -74,7 +77,7 @@ body {
 }
 
 .text_h1 {
-  color: #1b1b1b;
+  color: #282b3f;
   margin: 0 auto;
   font-weight: 700;
   text-align: center;
@@ -178,6 +181,16 @@ body {
 
 .offset {
   margin-left: 30px;
+}
+
+.offset-sm {
+  margin-left: 10px;
+}
+
+.wrapper-btn {
+  width: 100%;
+  margin-top: 50px;
+  justify-content: center;
 }
 
 

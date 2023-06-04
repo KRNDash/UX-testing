@@ -2,11 +2,13 @@ import "../styles/style.css";
 
 type Props = {
   onTextChange: (setData: string) => void;
+  startText?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 //Поле для ввода чисел
 export default function MyTextInput({
   onTextChange,
+  startText,
   placeholder = "Введите значение",
   ...rest
 }: Props) {
@@ -22,6 +24,7 @@ export default function MyTextInput({
         placeholder={placeholder}
         {...rest}
         onChange={(e) => onTextChange(e.target.value)}
+        value={startText}
       />
     </div>
   );

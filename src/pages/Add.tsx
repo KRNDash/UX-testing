@@ -20,27 +20,24 @@ import RangeInput from "../components/input/RangeInput.tsx";
 import IncludeInput from "../components/input/IncludeInput.tsx";
 import MultiplyInput from "../components/input/MultiplyInput.tsx";
 import useGetLocalConfig from "../hooks/useGetLocalConfig.ts";
-import { MyChecker } from "../utils/Types.ts";
+import { MyRule } from "../utils/Types.ts";
 import { getLocalConfig, setLocalConfig } from "../utils/localStorage.ts";
 
 type Props = {
   config: RulesConfig[];
-  setRule: (rule: Rule<MyChecker>, sectionId: number) => void;
+  setRule: (rule: Rule<MyRule>, sectionId: number) => void;
 };
 
 function Add() {
   const config = useGetLocalConfig();
 
-  function setRule(rule: Rule<MyChecker>, sectionId: number) {
+  function setRule(rule: Rule<MyRule>, sectionId: number) {
     //Добавление в localStorage конфиг
-    console.log("СТАРЫЙ");
-    console.log(config);
+    // console.log(config);
     config[sectionId - 1].rules.push(rule);
     setLocalConfig(config);
-    console.log("-----------------------------------");
-    console.log("НОВЫЙ");
     const newConfig = getLocalConfig();
-    console.log(newConfig);
+    // console.log(newConfig);
     // console.log(config);
   }
 
@@ -48,9 +45,6 @@ function Add() {
 }
 
 function AddRuleForm({ config, setRule }: Props) {
-  //Конфиг правил с сервера
-  // const [config, setConfig] = useState<RulesConfig[]>([]);
-
   //Данные о выбранной секции
   const [section, setSection] = useState<string>("1");
 
@@ -130,6 +124,7 @@ function AddRuleForm({ config, setRule }: Props) {
     return (
       <>
         <FourthStep
+          num={4}
           stepTitle={title}
           getter={getter}
           options={options}
@@ -175,7 +170,7 @@ function AddRuleForm({ config, setRule }: Props) {
 
   function setSixthStep() {
     if (type == undefined) {
-      console.log("всё похо");
+      // console.log("всё похо");
       return "";
     }
 
@@ -194,20 +189,16 @@ function AddRuleForm({ config, setRule }: Props) {
 
   function onAddRule() {
     //id нового правила при добавлении
-    // const startId = Math.max(...config.map((element) => element.id)) + 1;
-    // const sectionArr = config?.map((section) => (
-    //   Math.max(sectionArr?.rules.map((element) => element.id)) + 1));
-    // let sectionArr:RulesConfig<Checker>[] | undefined = [];
     const sectionArr = config.find(
       (element) => element.id === parseInt(section)
     );
 
     const startId = sectionArr?.rules.length + 1;
 
-    console.log(sectionArr);
-    console.log(startId);
+    // console.log(sectionArr);
+    // console.log(startId);
 
-    const newRule: MyChecker = {
+    const newRule: MyRule = {
       type: type,
       toBeParsed: parse,
     };
@@ -275,10 +266,11 @@ function AddRuleForm({ config, setRule }: Props) {
           ></FirstStep>
           {section && (
             <>
-              <SecondStep setSelector={setSelector}></SecondStep>
-              {selector && (
+              <ThirdStep num={2} setRuleText={setRuleText}></ThirdStep>
+              {ruleText && (
                 <>
-                  <ThirdStep setRuleText={setRuleText}></ThirdStep>
+                  <SecondStep num={3} setSelector={setSelector}></SecondStep>
+
                   {ruleText && (
                     <>
                       {setFourthStep()}
@@ -303,11 +295,11 @@ function AddRuleForm({ config, setRule }: Props) {
                         <div className="d-flex flex-row-reverse">
                           <button
                             onClick={onAddRule}
-                            className="btn col-2 btn-primary"
+                            className="btn btn-primary offset-sm"
                           >
                             Добавить правило
                           </button>
-                          <button className="btn btn-outline-primary col-2">
+                          <button className="btn btn-outline-primary">
                             Сбросить всё
                           </button>
                         </div>

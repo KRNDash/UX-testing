@@ -8,6 +8,7 @@ import Download from "./pages/Download";
 import Header from "./components/Header";
 import { setServerConfig } from "./utils/localStorage";
 import { useEffect } from "react";
+import Upload from "./pages/Upload";
 
 function App() {
   //Если LocalStorage пустой -> скачать конфиг с сервера
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/download" element={<Download />} />
       </Routes>
     </>

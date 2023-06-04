@@ -7,7 +7,7 @@ export const getCheckResult = async (
   url: string,
   data: RulesConfig[]
 ): Promise<RulesConfig<CheckResult[]>[]> => {
-  console.log(data);
+  // console.log(data);
   const PARAMS = "?" + "url=" + url;
   // const response = await fetch(BASE_URL + "/api/check" + PARAMS);
   const response = await fetch(BASE_URL + "/api/check" + PARAMS, {

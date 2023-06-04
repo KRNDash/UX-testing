@@ -6,12 +6,13 @@ type Props = {
   stepTitle: string;
   getter: (setProperty: any) => void;
   options: DataType[];
+  num: number;
 };
 
-export default function FourthStep({ stepTitle, getter, options }: Props) {
+export default function FourthStep({ stepTitle, getter, options, num }: Props) {
   return (
     <StepTitle
-      stepNum={4}
+      stepNum={num}
       stepTitle={stepTitle}
       input={<MyDropDown onElChange={getter} data={options}></MyDropDown>}
     ></StepTitle>

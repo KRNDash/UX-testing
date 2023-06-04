@@ -4,7 +4,7 @@ import { DataType, cssType, typeType } from "../utils/Types";
 
 type Props = {
   onElChange: (setData: any) => void;
-  data: DataType[] | typeType[] | cssType[];
+  data: DataType[] | typeType[] | cssType[] | undefined;
 };
 
 export default function MyDropDown({ data, onElChange }: Props) {

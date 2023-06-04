@@ -32,9 +32,7 @@ function Home() {
     async function setConfig() {
       // const config = localStorage.getItem("config");
       if (localStorage.length !== 0) {
-        console.log("всё хорошо");
       } else {
-        console.log("всё плохо");
         await setServerConfig();
       }
       // setLoading(true);
@@ -55,7 +53,7 @@ function Home() {
       setPercent(undefined);
       setError(false);
       const data = await getCheckResult(url, getLocalConfig());
-      console.log(data);
+      // console.log(data);
       setLoading(false);
       setData(data);
       showNumList();
@@ -142,7 +140,7 @@ function Home() {
                     name="url"
                     id="basic-url"
                     aria-describedby="basic-addon3"
-                    placeholder="http://examle.com"
+                    placeholder="http://example.com"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                   />
