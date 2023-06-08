@@ -5,7 +5,7 @@ import puppeteer, { Browser } from "puppeteer"; //бибилиотека пол�
 import path from "path";
 import { config } from "./config"; //конфиг правил
 import { getCheckResult } from "./checkers"; //чекеры
-import { CheckResult } from "./types/Checker"; //типы чекеров
+import { CheckResult, Checker } from "./types/Checker"; //типы чекеров
 import { RulesConfig } from "./types/Config"; //тип конфиг
 // import { isValidUrl } from "./utils/isValidUrl"; //проверка валидности адреса
 
@@ -30,7 +30,7 @@ app.post("/api/check", async (req: Request, res: Response) => {
 
   //Получаем конфиг с запроса
   const newConfig: RulesConfig[] = req.body;
-  let conf;
+  let conf: IterableIterator<[number, RulesConfig<Checker>]>;
 
   // console.log(newConfig);
 
@@ -46,8 +46,6 @@ app.post("/api/check", async (req: Request, res: Response) => {
     } else {
       conf = newConfig.entries();
     }
-
-    //...
 
     //Переменная для хранения результатов тестирования
     const results: RulesConfig<CheckResult[]>[] = [];
@@ -78,6 +76,7 @@ app.post("/api/check", async (req: Request, res: Response) => {
         }
       }
     }
+
     //Отправляем результаты проверки
     res.json(results);
   } catch (error) {
